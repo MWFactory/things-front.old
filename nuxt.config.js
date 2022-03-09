@@ -30,7 +30,11 @@ export default {
   plugins: [],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  components: {
+    dirs: [
+      '~/components',
+    ],
+  },
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
@@ -40,6 +44,15 @@ export default {
     '@nuxtjs/style-resources',
     // https://github.com/nuxt-community/router-extras-module
     '@nuxtjs/router-extras',
+    [
+      '@nuxtjs/google-fonts', {
+        families: {
+          'Inconsolata': {
+            wght: [400, 700]
+          },
+        },
+      },
+    ],
   ],
 
   styleResources: {
@@ -58,9 +71,11 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    baseURL: process.env.API_URL || 'http://192.162.1.240:8000',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    transpile: ['vee-validate'],
+  },
 }

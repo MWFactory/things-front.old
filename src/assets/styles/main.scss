@@ -1,0 +1,57 @@
+body {
+  font-family: 'Inconsolata', 'Consolas', monospace;
+  font-size: 15px;
+  background-color: $white;
+}
+
+h1 {
+  position: relative;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    height: 3px;
+    background-color: $primary;
+  }
+}
+
+p {
+  font-size: 14px;
+
+  a {
+    font-weight: 700;
+  }
+}
+
+input[type=text], input[type=password] {
+  outline: none;
+  -webkit-appearance: none;
+  z-index: 1;
+  position: relative;
+  padding: 7px 10px;
+  margin-top: 10px;
+  border-bottom: 1px solid $black;
+}
+
+input[type=submit] {
+  position: relative;
+  background-color: $primary;
+  color: $white;
+  font-weight: 700;
+  padding: 15px 30px;
+  margin-top: 30px;
+  text-align: center;
+  align-self: center;
+}
+
+@media (min-width: 992px) {
+  h1 {
+   font-size: 30px;
+  }
+}
