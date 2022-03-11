@@ -2,13 +2,54 @@ body {
   font-family: 'Inconsolata', 'Consolas', monospace;
   font-size: 15px;
   background-color: $white;
+
+  .input-field {
+    display: flex;
+    flex-direction: column;
+    width: 257px;
+    align-self: center;
+  }
+
+  input[type=text], input[type=password] {
+    outline: none;
+    -webkit-appearance: none;
+    z-index: 1;
+  }
+
+  input[type=submit] {
+    position: relative;
+    background-color: $primary;
+    color: $white;
+    font-weight: 700;
+    padding: 15px 30px;
+    margin-top: 30px;
+    text-align: center;
+    align-self: center;
+  }
+
+  // "display: none" or "visibility: hidden" will not work out,
+  // because the value will not be send to the server on form submit.
+  // the input will be excluded out of tab order,
+  // and we want your app to be accessible.
+  input[type=file] {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .desktop {
+    display: none;
+  }
 }
 
 h1 {
   position: relative;
   font-size: 22px;
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 
   &:after {
     content: '';
@@ -21,6 +62,17 @@ h1 {
   }
 }
 
+.error-message {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  width: calc(100% - 60px);
+  color: $primary;
+  font-weight: 700;
+  text-align: center;
+}
+
 p {
   font-size: 14px;
 
@@ -29,29 +81,17 @@ p {
   }
 }
 
-input[type=text], input[type=password] {
-  outline: none;
-  -webkit-appearance: none;
-  z-index: 1;
-  position: relative;
-  padding: 7px 10px;
-  margin-top: 10px;
-  border-bottom: 1px solid $black;
-}
 
-input[type=submit] {
-  position: relative;
-  background-color: $primary;
-  color: $white;
-  font-weight: 700;
-  padding: 15px 30px;
-  margin-top: 30px;
-  text-align: center;
-  align-self: center;
-}
 
 @media (min-width: 992px) {
-  h1 {
-   font-size: 30px;
+  body {
+    .desktop {
+      display: block;
+    }
   }
+
+  h1 {
+   font-size: 35px;
+  }
+
 }

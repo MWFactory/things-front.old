@@ -33,6 +33,7 @@ export default {
   components: {
     dirs: [
       '~/components',
+      '~/components/sign-in',
     ],
   },
 
@@ -78,4 +79,8 @@ export default {
   build: {
     transpile: ['vee-validate'],
   },
+
+  server: {
+    host: '192.168.1.13',
+  }
 }

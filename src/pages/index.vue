@@ -16,7 +16,7 @@
       <img class="connection__header-img desktop" src="@/assets/images/connection.png" alt="Header de l'écran de connexion" />
       <form class="connection__form" @submit.prevent="handleConnection">
         <!-- INPUT : mail address -->
-        <div class="connection__input-field">
+        <div class="connection__input-field input-field">
           <label class="connection__label" for="email">
             Adresse mail
           </label>
@@ -24,7 +24,7 @@
         </div>
 
         <!-- INPUT : password -->
-        <div class="connection__input-field">
+        <div class="connection__input-field input-field">
           <label class="connection__label" for="password">
             Mot de passe
           </label>
@@ -45,10 +45,10 @@
         <!-- INPUT : submit -->
         <input class="connection__input-button" type="submit" value="Connexion" />
       </form>
-      <div v-if="errorMessage" class="connection__error-message">
-      {{ errorMessage }}
-      </div>
     </main>
+    <div v-if="errorMessage" class="connection__error-message error-message">
+      {{ errorMessage }}
+    </div>
   </div>
 </template>
 
@@ -70,17 +70,17 @@
       }),
     },
     methods: {
-      ...mapMutations('connection', ['UPDATE_ERROR_MESSAGE']),
+      ...mapMutations('connection', ['SET_ERROR_MESSAGE']),
       ...mapActions('connection', ['sendConnectionRequest']),
 
       handleConnection() {
         // we check if one of the form fields are empty
         if (this.emailInputValue === '' || this.passwordInputValue === '') {
-          this.UPDATE_ERROR_MESSAGE({ message: 'Tous les champs sont obligatoires.' });
+          this.SET_ERROR_MESSAGE({ message: 'Tous les champs sont obligatoires.' });
         }
         // if not, we send the call to the API
         else {
-          this.UPDATE_ERROR_MESSAGE({ message: '' });
+          this.SET_ERROR_MESSAGE({ message: '' });
 
           this.sendConnectionRequest({ email: this.emailInputValue, password: this.passwordInputValue });
         }
@@ -91,24 +91,20 @@
 
 <style lang="scss" scoped>
   .connection {
+    position: relative;
     display: flex;
     flex-direction: column;
     padding: 0px 30px;
-    margin: 30px 0px;
+    margin: 40px 0px;
 
     &__header {
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: 30px;
 
       &-img {
         margin-bottom: 30px;
       }
-    }
-
-    &__main {
-      margin-bottom: 30px;
     }
 
     &__form {
@@ -118,8 +114,6 @@
     }
 
     &__input-field {
-      display: flex;
-      flex-direction: column;
       margin-bottom: 30px;
 
       &--remember-me {
@@ -138,17 +132,10 @@
       margin-top: 10px;
       font-size: 14px;
     }
+  }
 
-    &__error-message {
-      position: absolute;
-      left: 50%;
-      transform: translate(-50%, 0%);
-      width: calc(100% - 60px);
-      color: $primary;
-      font-size: 14px;
-      font-weight: 700;
-      text-align: center;
-    }
+  .desktop {
+    display: none;
   }
 
   @media (min-width: 992px) {

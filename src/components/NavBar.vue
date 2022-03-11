@@ -59,6 +59,7 @@ export default {
 
 <style lang="scss" scoped>
   .nav {
+    z-index: 10;
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -67,6 +68,7 @@ export default {
     color: $white;
     height: 80px;
     padding: 0px 30px;
+
 
     &__link {
       margin-left: 20px;
@@ -86,6 +88,17 @@ export default {
 
       &-link {
         margin: 10px;
+      }
+    }
+  }
+
+  @media (min-width: 992px) {
+    .nav {
+      background-color: transparent;
+      padding: 0px 100px;
+
+      &__links {
+        color: $black;
       }
     }
   }
