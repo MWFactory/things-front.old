@@ -27,4 +27,10 @@ export default {
       margin-left: 20px;
     }
   }
+
+  @media (min-width: 992px) {
+    .footer {
+      padding: 0px 100px;
+    }
+  }
 </style>
