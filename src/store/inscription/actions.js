@@ -22,13 +22,13 @@ export default {
           'Content-Type': 'multipart/form-data',
         },
       })
-    .then(() => {
+    .then((response) => {
       commit('CHANGE_STEP', { stepId: 5 });
       commit('VALIDATE_STEP', { stepId: 4 });
     })
     .catch((error) => {
-      if (error.response.data.message === 'Cet utilisateur existe déja') {
-        commit('SET_ERROR_MESSAGE', { message: 'Vous avez déjà un compte utilisateur.' });
+      if (error.response.status === 401) {
+        commit('SET_ERROR_MESSAGE', { message: error.response.data.message + '.' });
       } else {
         commit('SET_ERROR_MESSAGE', { message: 'Une erreur s\'est produite.' });
       }

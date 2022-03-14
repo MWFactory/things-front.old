@@ -34,6 +34,7 @@ export default {
     dirs: [
       '~/components',
       '~/components/sign-in',
+      '~/components/dashboard',
     ],
   },
 

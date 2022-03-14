@@ -12,8 +12,8 @@
       <br /> <br />
       Pensez à vérifier dans vos spams.
     </p>
-    <router-link to="/" @click="resetSteps">
-      <button class="step__button">
+    <router-link to="/">
+      <button class="step__button" @click="resetSteps">
         Connectez-vous
       </button>
     </router-link>
@@ -24,7 +24,10 @@
   export default {
     name: 'Step5Component',
     props: {
-      resetSteps: Function,
+      resetSteps: {
+        type: [Function],
+        default: () => {},
+      },
     },
   };
 </script>

@@ -79,7 +79,7 @@
       <Step2 v-if="currentStep === 2" :change-step="changeStep" :validate-step="validateStep" />
       <Step3 v-if="currentStep === 3" :change-step="changeStep" :validate-step="validateStep" />
       <Step4 v-if="currentStep === 4" :change-step="changeStep" :validate-step="validateStep" />
-      <Step5 v-if="currentStep === 5" :reset-steps="resetSteps"/>
+      <Step5 v-if="currentStep === 5" :reset-steps="resetSteps" />
     </div>
   </div>
 </template>

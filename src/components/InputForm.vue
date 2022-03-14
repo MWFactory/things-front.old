@@ -37,59 +37,6 @@
   };
 </script>
 
-<style lang="scss" scoped>
-  .input {
-    &__group {
-      margin: 30px 0px;
-      align-self: center;
-      position: relative;
-      padding-top: 15px;
-      width: 250px;
-      font-size: 15px;
-    }
+<style lang="scss">
 
-    &__field {
-      position: relative;
-      width: 100%;
-      border: 0;
-      border-bottom: 1px solid $black;
-      outline: 0;
-      color: $black;
-      background: transparent;
-      padding: 7px 10px;
-      transition: border-color 0.2s, background-color 0.2s;
-
-      &::placeholder {
-        color: transparent;
-      }
-
-      &:placeholder-shown ~ .input__label {
-        cursor: text;
-        top: 20px;
-      }
-
-      &:focus {
-        border-width: 1px;
-        border-color: $primary;
-        background-color: $secondary;
-
-        ~ .input__label {
-          position: absolute;
-          top: -10px;
-          display: block;
-          transition: 0.2s;
-          color: $primary;
-          font-weight: 700;
-        }
-      }
-    }
-
-    &__label {
-      position: absolute;
-      top: -10px;
-      display: block;
-      transition: 0.2s;
-      color: $black;
-    }
-  }
 </style>

@@ -4,5 +4,6 @@ export default () => ({
   lastName: '',
   email: '',
   profilePicture: '',
+  things: [],
   isLogged: false,
 });
