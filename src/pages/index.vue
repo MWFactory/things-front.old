@@ -16,24 +16,15 @@
       <img class="connection__header-img desktop" src="@/assets/images/connection.png" alt="Header de l'écran de connexion" />
       <form class="connection__form" @submit.prevent="handleConnection">
         <!-- INPUT : mail address -->
-        <div class="connection__input-field input-field">
-          <label class="connection__label" for="email">
-            Adresse mail
-          </label>
-          <input id="email" class="connection__input" type="text" name="email" :value="emailInputValue" @change="emailInputValue = $event.target.value" />
+        <div class="input__group">
+          <input id="email" class="input__field" name="email" type="text" placeholder="Adresse mail" :value="emailInputValue" @change="emailInputValue = $event.target.value" />
+          <label class="input__label">Adresse mail</label>
         </div>
-
         <!-- INPUT : password -->
-        <div class="connection__input-field input-field">
-          <label class="connection__label" for="password">
-            Mot de passe
-          </label>
-          <input id="password" class="connection__input" type="password" name="password" :value="passwordInputValue" @change="passwordInputValue = $event.target.value" />
-          <router-link class="connection__forgotten-password" to="/mot-de-passe-oublie">
-            Mot de passe oublié ?
-          </router-link>
+        <div class="input__group">
+          <input id="password" class="input__field" name="password" type="password" placeholder="Mot de passe" :value="passwordInputValue" @change="passwordInputValue = $event.target.value" />
+          <label class="input__label">Mot de passe</label>
         </div>
-
         <!-- INPUT : remember me -->
         <div class="connection__input-field--remember-me">
           <input id="remember-me" class="connection__input" type="checkbox" name="remember-me" :value="rememberMeInputValue" @change="rememberMeInputValue = !rememberMeInputValue" />
@@ -41,7 +32,6 @@
             Se souvenir de moi
           </label>
         </div>
-
         <!-- INPUT : submit -->
         <input class="connection__input-button" type="submit" value="Connexion" />
       </form>
@@ -110,7 +100,6 @@
     &__form {
       display: flex;
       flex-direction: column;
-      margin-top: 45px;
     }
 
     &__input-field {
@@ -119,6 +108,8 @@
       &--remember-me {
         flex-direction: row;
         align-items: center;
+        width: 250px;
+        align-self: center;
 
         label {
           font-size: 14px;
@@ -147,7 +138,6 @@
 
       &__form {
         min-width: 275px;
-        margin-top: 0px;
         margin-left: 80px;
       }
 

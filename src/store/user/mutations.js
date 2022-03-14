@@ -7,6 +7,9 @@ export default {
     state.profilePicture = payload.profilePicture;
     state.isLogged = true;
   },
+  GET_THINGS_SUCCESS(state, payload) {
+    state.things = payload.things;
+  },
   DISCONNECT_USER(state) {
     state.id = 0;
     state.firstName = '';
