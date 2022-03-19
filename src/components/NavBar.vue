@@ -6,7 +6,7 @@
       </div>
     </router-link>
     <!-- if the user is not connected -->
-    <div class="nav__links" v-if="!isLogged">
+    <div v-if="!isLogged" class="nav__links">
       <router-link to="/" class="nav__link">
         Connexion
       </router-link>
@@ -16,11 +16,11 @@
     </div>
 
     <!-- if the user is connected -->
-    <div class="nav__links" v-else>
-      <div class="nav__user-profile" @click="modalIsOpen = !modalIsOpen">
-        Profil
-      </div>
-      <div class="nav__modal" v-if="modalIsOpen">
+    <div v-else class="nav__links">
+      <button class="nav__user-profile" @click="modalIsOpen = !modalIsOpen">
+        <img class="nav__user-profile-src" :src="`http://192.168.1.241:8000${profilePicture}`" alt="Photo de profil de l'utilisateur" />
+      </button>
+      <div v-if="modalIsOpen" class="nav__modal">
         <router-link class="nav__modal-link" to="/profil">
           Voir le profil
         </router-link>
@@ -45,6 +45,7 @@ export default {
     computed: {
       ...mapState({
         isLogged: state => state.user.isLogged,
+        profilePicture: state => state.user.profilePicture,
       })
     },
     methods: {
@@ -88,6 +89,21 @@ export default {
 
       &-link {
         margin: 10px;
+      }
+    }
+
+    &__user-profile {
+      overflow: hidden;
+      height: 35px;
+      width: 35px;
+      border-radius: 50px;
+      border: 2px solid $white;
+
+      img {
+        object-fit: cover;
+        object-position: center;
+        height: 100%;
+        width: 100%;
       }
     }
   }

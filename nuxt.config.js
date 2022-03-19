@@ -27,7 +27,9 @@ export default {
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    { src: '~/plugins/vuex-persist.js', ssr: false },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: {
@@ -68,12 +70,13 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    'cookie-universal-nuxt',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: process.env.API_URL || 'http://192.162.1.240:8000',
+    baseURL: process.env.API_URL || 'http://192.168.1.241:8000/',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -82,6 +85,6 @@ export default {
   },
 
   server: {
-    host: '192.168.1.13',
+    host: '0.0.0.0',
   }
 }
