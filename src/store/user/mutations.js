@@ -1,14 +1,12 @@
 export default {
   GET_USER_SUCCESS(state, payload) {
-    state.id = payload.id;
-    state.firstName = payload.firstname;
-    state.lastName = payload.lastname;
-    state.email = payload.email;
+    state.id = payload.user.id;
+    state.firstName = payload.user.firstname;
+    state.lastName = payload.user.lastname;
+    state.email = payload.user.email;
     state.profilePicture = payload.profilePicture;
-    state.isLogged = true;
-  },
-  GET_THINGS_SUCCESS(state, payload) {
     state.things = payload.things;
+    state.isLogged = true;
   },
   DISCONNECT_USER(state) {
     state.id = 0;

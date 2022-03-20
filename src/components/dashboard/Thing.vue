@@ -1,7 +1,7 @@
 <template>
   <div class="thing">
     <h2 class="thing__title">
-      Titre
+      {{ thing.title }}
     </h2>
     <hr class="thing__separator" />
 
@@ -13,16 +13,16 @@
           > Date d'achat
         </div>
         <div class="thing__info-value">
-          00/00/0000
+          {{ new Date(thing.purchase_date).toLocaleDateString() }}
         </div>
       </div>
       <!-- THING END GUARANTEE -->
-      <div class="thing__info">
+      <div v-if="thing.warranty_end_date" class="thing__info">
         <div class="thing__info-title">
           > Fin de garantie
         </div>
         <div class="thing__info-value">
-          00/00/0000
+          {{ new Date(thing.warranty_end_date).toLocaleDateString() }}
         </div>
       </div>
     </div>
@@ -32,24 +32,35 @@
         <img class="thing__preview-src" src="@/assets/images/preview-icon.svg" alt="Icône de prévisualisation" />
         Prévisualiser
       </div>
-      <button class="thing__button">
-        Détails
-      </button>
+      <router-link :to="`/thing/${thing.id}`">
+        <button class="thing__button button" @click="GET_THING_BY_ID(thing)">
+          Détails
+        </button>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'ThingComponent',
-};
+  import { mapMutations } from "vuex";
+
+  export default {
+    name: 'ThingComponent',
+    props: {
+      thing: Object,
+    },
+    methods: {
+      ...mapMutations('thing', ['GET_THING_BY_ID']),
+    }
+  };
 </script>
 
 <style lang="scss" scoped>
 .thing {
   background-color: $secondary;
-  padding: 22px 18px;
+  padding: 25px 18px;
   margin-bottom: 30px;
+  border-bottom: 4px solid $black;
 
   &:last-child {
     margin-bottom: 0px;
@@ -92,7 +103,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 20px;
   }
 
   &__preview {
@@ -106,7 +117,6 @@ export default {
   }
 
   &__button {
-    font-size: 13px;
     margin-top: 0px;
   }
 }

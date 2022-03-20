@@ -47,6 +47,7 @@
 
   export default {
     name: 'ConnectionPage',
+    middleware: 'authenticated',
     data() {
       return {
         emailInputValue: '',
