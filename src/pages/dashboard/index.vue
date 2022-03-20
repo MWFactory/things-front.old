@@ -66,6 +66,9 @@
         things: state => state.user.things,
       }),
     },
+    mounted() {
+      this.sortedThings = [...this.things];
+    },
     methods: {
       handleSelect(event) {
         const selectedOption = this.options.find(option => option.id === parseInt(event.target.id, 10));
@@ -110,9 +113,6 @@
         this.selectIsOpen = false;
       }
     },
-    mounted() {
-      this.sortedThings = [...this.things];
-    }
   };
 </script>
 
@@ -182,8 +182,6 @@
     &__content {
       display: flex;
       flex-direction: column;
-      height: 550px;
-      overflow-x: scroll;
       margin: 30px 0px;
       padding: 0px 30px;
     }
@@ -192,6 +190,6 @@
 
 <router>
   {
-  path: '/tableau-de-bord',
+    path: '/tableau-de-bord',
   }
 </router>

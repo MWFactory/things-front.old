@@ -97,14 +97,14 @@ h1 {
   position: relative;
   font-size: 22px;
   font-weight: 700;
-  margin-bottom: 30px;
+  margin-bottom: 6px;
 
   &:after {
     content: '';
     position: absolute;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
+    left: 0px;
+    right: 0px;
+    bottom: -3px;
     height: 3px;
     background-color: $primary;
   }
