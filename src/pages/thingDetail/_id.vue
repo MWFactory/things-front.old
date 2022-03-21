@@ -8,38 +8,44 @@
         <img class="thing__edit-thing-src" src="@/assets/images/edit-thing-icon.svg" alt="Icône de modification" />
       </button>
     </header>
-    <div class="thing-detail__files">
-      <div v-for="attachment of thing.attachments" :key="attachment.id" :class="attachment.onActive === false ? 'thing-detail__file' : 'thing-detail__file active'" @click="changeActiveFile">
-        <embed :id="attachment.id" class="thing-detail__file-src" :src="`http://192.168.1.241:8000${attachment.url}`" width="86" height="86" type="application/pdf"/>
-      </div>
-    </div>
-    <div class="thing-detail__file-infos">
-      <h2 class="thing-detail__file-subtitle">
-        <img class="thing__file-preview-src" src="@/assets/images/preview-icon.svg" alt="Icône de prévisualisation" />
-        Nom et format du fichier
-      </h2>
-      <div class="thing-detail__file-path">
-        {{ nameActiveFile }}
-      </div>
-    </div>
-    <p class="thing-detail__description">
-      {{ thing.description }}
-    </p>
-    <div class="thing-detail__dates">
-      <div class="thing-detail__date">
-        <h2 class="thing-detail__date-subtitle">
-          > Date d'achat
-        </h2>
-        <div class="thing-detail__date-value">
-          {{ new Date(thing.purchaseDate).toLocaleDateString() }}
+    <div class="thing-detail__content">
+      <div class="thing-detail__files-wrapper">
+        <div class="thing-detail__files">
+          <div v-for="attachment of thing.attachments" :key="attachment.id" :class="attachment.onActive === false ? 'thing-detail__file' : 'thing-detail__file active'" @click="changeActiveFile">
+            <embed :id="attachment.id" class="thing-detail__file-src" :src="`http://192.168.1.241:8000${attachment.url}`" width="86" height="86" type="application/pdf"/>
+          </div>
+        </div>
+        <div class="thing-detail__file-infos">
+          <h2 class="thing-detail__file-subtitle">
+            <img class="thing__file-preview-src" src="@/assets/images/preview-icon.svg" alt="Icône de prévisualisation" />
+            Nom et format du fichier
+          </h2>
+          <div class="thing-detail__file-path">
+            {{ nameActiveFile }}
+          </div>
         </div>
       </div>
-      <div v-if="thing.warrantyEndDate" class="thing-detail__date">
-        <h2 class="thing-detail__date-subtitle">
-          > Fin de garantie
-        </h2>
-        <div class="thing-detail__date-value">
-          {{ new Date(thing.warrantyEndDate).toLocaleDateString() }}
+      <div class="thing-detail__data-wrapper">
+        <p class="thing-detail__description">
+          {{ thing.description }}
+        </p>
+        <div class="thing-detail__dates">
+          <div class="thing-detail__date">
+            <h2 class="thing-detail__date-subtitle">
+              > Date d'achat
+            </h2>
+            <div class="thing-detail__date-value">
+              {{ new Date(thing.purchaseDate).toLocaleDateString() }}
+            </div>
+          </div>
+          <div v-if="thing.warrantyEndDate" class="thing-detail__date">
+            <h2 class="thing-detail__date-subtitle">
+              > Fin de garantie
+            </h2>
+            <div class="thing-detail__date-value">
+              {{ new Date(thing.warrantyEndDate).toLocaleDateString() }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -84,7 +90,7 @@
         this.CHANGE_ACTIVE_FILE({ id: attachmentId });
       },
       handleEdit() {
-        // console.log('HANDLE EDIT!!!');
+        console.log('HANDLE EDIT!!!');
       },
     },
   };
@@ -101,6 +107,7 @@
       align-items: center;
       margin-bottom: 30px;
     }
+
 
     &__edit-thing {
       display: flex;
@@ -167,6 +174,32 @@
 
       &-subtitle {
         font-weight: 700;
+      }
+    }
+  }
+
+  @media (min-width: 992px) {
+    .thing-detail {
+      display: flex;
+      flex-direction: column;
+      max-width: 70%;
+      margin: 30px auto;
+
+      &__content {
+        display: flex;
+        flex-direction: row-reverse;
+      }
+
+      &__data-wrapper, &__files-wrapper {
+        width: 50%;
+      }
+
+      &__data-wrapper {
+        margin-right: 30px;
+      }
+
+      &__description {
+        margin-top: 0px;
       }
     }
   }

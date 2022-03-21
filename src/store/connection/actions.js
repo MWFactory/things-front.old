@@ -11,7 +11,6 @@ export default {
       await this.$axios.get('/thing/browse', { withCredentials: true } ),
     ])
       .then(([user, things]) => {
-        console.log(user, things);
         const thingsData = [];
 
         things.data.ressources.forEach((ressource) => {
