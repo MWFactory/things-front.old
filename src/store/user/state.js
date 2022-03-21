@@ -6,4 +6,5 @@ export default () => ({
   profilePicture: '',
   things: [],
   isLogged: false,
+  errorMessage: '',
 });

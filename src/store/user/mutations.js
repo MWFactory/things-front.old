@@ -16,4 +16,7 @@ export default {
     state.profilePicture = '';
     state.isLogged = false;
   },
+  SET_ERROR_MESSAGE(state, payload) {
+    state.errorMessage = payload.message;
+  },
 };
