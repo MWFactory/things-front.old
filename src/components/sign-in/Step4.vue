@@ -93,54 +93,6 @@
       ...mapMutations('inscription', ['SET_PROFILE_PICTURE']),
       ...mapActions('inscription', ['sendInscriptionRequest']),
 
-      handleFileUpload(event) {
-        this.file = event.target.files[0];
-
-        // on récupère la balise qui va contenir la photo de profil
-        const profilePictureArea = document.querySelector('.step__profile-picture');
-        let profilePictureTag;
-        // on récupère le label "Parcourir" de l'input
-        const label = event.target.nextElementSibling;
-        // on récupère le champ qui va contenir le nom du fichier
-        const fileName = label.querySelector('.step__file-name');
-        // et on y insère le nom du fichier qu'on vient d'uploader
-        fileName.innerHTML = event.target.files[0].name;
-
-        // le document doit être de type image
-        const imageType = /image.*/;
-
-        // on vérifie si le type de document envoyé n'est pas une image
-        if (!this.file.type.match(imageType)) {
-          // si oui, on affiche un message d'erreur
-          this.SET_ERROR_MESSAGE({ message: 'Le document sélectionné n\'est pas une image.' });
-
-          // si une image a déjà été importée auparavant
-          if (this.profilePicture) {
-            // on sélectionne la balise <img /> et on la supprime du DOM
-            profilePictureTag = document.querySelector('.step__profile-picture-src');
-            profilePictureArea.removeChild(profilePictureTag);
-          }
-        } else {
-          this.SET_ERROR_MESSAGE({ message: '' })
-          // si oui, on stocke notre objet File dans le state
-          this.SET_PROFILE_PICTURE({ value: this.file });
-
-          // et on fait un rendu du document dans le DOM
-          const reader = new FileReader();
-
-          reader.onload = () => {
-            profilePictureArea.innerHTML = '';
-            const image = new Image();
-            image.classList.add('sign-in__profile-picture-src');
-            image.src = reader.result;
-            image.alt = 'Photo de profil choisie par l\'utilisateur';
-
-            profilePictureArea.appendChild(image);
-          }
-
-          reader.readAsDataURL(this.file);
-        }
-      },
       nextStep() {
         this.sendInscriptionRequest();
       },
@@ -149,29 +101,5 @@
 </script>
 
 <style lang="scss" scoped>
-.step {
-  &__file {
-    &-label {
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: $secondary;
-      font-weight: 700;
-      padding: 17px;
-    }
-  }
 
-  &__outer-file-name {
-    margin-left: 25px;
-    overflow: hidden;
-    text-align: right;
-    white-space: nowrap;
-    font-weight: 500;
-  }
-
-  &__inner-file-name {
-    float: right;
-  }
-}
 </style>

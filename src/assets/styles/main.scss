@@ -64,29 +64,18 @@ body {
     z-index: 1;
   }
 
-  input[type=submit], .button {
-    position: relative;
-    background-color: $primary;
-    color: $white;
-    font-weight: 700;
-    padding: 15px 30px;
-    margin-top: 30px;
-    text-align: center;
-    align-self: center;
-  }
+  //input[type=submit], .button {
+  //  position: relative;
+  //  background-color: $primary;
+  //  color: $white;
+  //  font-weight: 700;
+  //  padding: 15px 30px;
+  //  margin-top: 30px;
+  //  text-align: center;
+  //  align-self: center;
+  //}
 
-  // "display: none" or "visibility: hidden" will not work out,
-  // because the value will not be send to the server on form submit.
-  // the input will be excluded out of tab order,
-  // and we want your app to be accessible.
-  input[type=file] {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
-  }
+
 
   .desktop {
     display: none;
