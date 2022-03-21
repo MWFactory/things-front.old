@@ -129,7 +129,7 @@
       display: flex;
       justify-content: space-between;
       width: 100%;
-      margin-top: 10px;
+      margin-top: 30px;
     }
 
     &__select {
