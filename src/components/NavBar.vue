@@ -1,11 +1,13 @@
 <template>
   <nav class="nav">
-    <router-link to="/">
+    <!-- NAVBAR contains => link to the home page or the dashboard, connection & subscription buttons or user profile with a modal -->
+    <!-- link to the home page or the dashboard -->
+    <router-link :to="isLogged ? '/tableau-de-bord' : '/'">
       <div class="nav__logo">
         Things.
       </div>
     </router-link>
-    <!-- if the user is not connected -->
+    <!-- if the user is not connected / connection & subscription link -->
     <div v-if="!isLogged" class="nav__links">
       <router-link to="/" class="nav__link">
         Connexion
@@ -15,14 +17,17 @@
       </router-link>
     </div>
 
-    <!-- if the user is connected -->
+    <!-- if the user is connected / user profile -->
     <div v-else class="nav__links">
       <button class="nav__user-profile" @click="modalIsOpen = !modalIsOpen">
         <img class="nav__user-profile-src" :src="`http://192.168.1.241:8000${profilePicture}`" alt="Photo de profil de l'utilisateur" />
       </button>
-      <div v-if="modalIsOpen" class="nav__modal">
-        <router-link class="nav__modal-link" to="/profil">
-          Voir le profil
+      <!-- with a modal -->
+      <div v-if="modalIsOpen" v-click-outside="clickOutsideMenu" class="nav__modal">
+        <router-link to="/profil">
+          <div class="nav__modal-link" @click="modalIsOpen = !modalIsOpen">
+            Voir le profil
+          </div>
         </router-link>
         <div class="nav__modal-link" @click="handleDisconnect">
           Se déconnecter
@@ -33,10 +38,14 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+  import { mapState, mapActions } from 'vuex';
+  import vClickOutside from "v-click-outside";
 
-export default {
+  export default {
     name: 'NavBarComponent',
+    directives: {
+      clickOutside: vClickOutside.directive,
+    },
     data() {
       return {
         modalIsOpen: false,
@@ -49,11 +58,19 @@ export default {
       })
     },
     methods: {
-      ...mapMutations('user', ['DISCONNECT_USER']),
+      // ...map()
+      ...mapActions('auth', ['sendDisconnectionRequest']),
 
+      // when the user click on the "disconnection" button
       handleDisconnect() {
-        this.DISCONNECT_USER();
+        // console.Log('HANDLE DISCONNECTION");
+
+        this.modalIsOpen = false;
+        this.sendDisconnectionRequest();
       },
+      clickOutsideMenu() {
+        this.modalIsOpen = false;
+      }
     }
   }
 </script>
@@ -88,6 +105,7 @@ export default {
       border-bottom: 3px solid $black;
 
       &-link {
+        cursor: pointer;
         margin: 10px;
       }
     }
@@ -107,15 +125,10 @@ export default {
       }
     }
   }
-
+  //
   @media (min-width: 992px) {
     .nav {
-      background-color: transparent;
       padding: 0px 100px;
-
-      &__links {
-        color: $black;
-      }
     }
   }
 </style>

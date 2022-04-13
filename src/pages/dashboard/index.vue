@@ -1,10 +1,14 @@
 <template>
-  <div class="dashboard">
-    <header class="dashboard__header">
+  <main class="dashboard">
+    <!-- DASHBOARD contains => title, settings with select and add thing button, things of the user -->
+    <section class="dashboard__header">
+      <!-- title -->
       <h1 class="dashboard__title">
         Pas mal, vous avez {{ things.length }} Things !
       </h1>
+      <!-- settings with -->
       <div class="dashboard__settings">
+        <!-- select -->
         <div v-click-outside="clickOutsideSelect" class="dashboard__select-wrapper">
           <div class="dashboard__select" @click="selectIsOpen = !selectIsOpen">
             {{ nameSelect }}
@@ -15,15 +19,23 @@
             </li>
           </ul>
         </div>
-        <router-link to="/creer-thing" class="dashboard__add-thing">
+        <!-- add thing button -->
+        <router-link to="/thing/creer" class="dashboard__add-thing">
           <img class="dashboard__add-thing-src" src="@/assets/images/add-thing-icon.svg" alt="Icône d'un plus pour ajouter une tâche" />
         </router-link>
       </div>
-    </header>
-    <div class="dashboard__content">
+    </section>
+    <section class="dashboard__content">
+      <!-- things of the user -->
+      <router-link to="/thing/creer" class="dashboard__card-add-thing">
+        <img src="@/assets/images/img-add-thing.png" alt="Image pour ajouter une Thing" />
+        Ajouter un document
+        <br />
+        +
+      </router-link>
       <Thing v-for="thing of sortedThings" :key="thing.id" :thing="thing" />
-    </div>
-  </div>
+    </section>
+  </main>
 </template>
 
 <script>
@@ -118,18 +130,19 @@
 
 <style lang="scss" scoped>
   .dashboard {
+    @include main-container;
+    @include flex-column-align-center;
+
     &__header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 30px 30px 0px 30px;
+      @include flex-column-align-center;
+      width: 100%;
     }
 
     &__settings {
       display: flex;
       justify-content: space-between;
       width: 100%;
-      margin-top: 30px;
+      margin: 1.875rem 0;
     }
 
     &__select {
@@ -182,8 +195,65 @@
     &__content {
       display: flex;
       flex-direction: column;
-      margin: 30px 0px;
-      padding: 0px 30px;
+      width: 100%;
+    }
+
+    &__card-add-thing {
+      display: none;
+      border: 2px dashed $primary;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .dashboard {
+      &__header {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      &__settings {
+        width: auto;
+      }
+
+      &__add-thing {
+        display: none;
+      }
+
+      &__card-add-thing {
+        width: 100%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        color: $primary;
+        font-size: 1.1em;
+        font-weight: 700;
+        text-align: center;
+        padding-bottom: 10px;
+
+        img {
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translate(-50%, 0);
+          height: 68%;
+        }
+      }
+
+      &__content {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        column-gap: 30px;
+        row-gap: 30px;
+      }
+    }
+  }
+
+  @media (min-width: 992px) {
+    .dashboard {
+      &__content {
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      }
     }
   }
 </style>
