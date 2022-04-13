@@ -1,15 +1,14 @@
 body {
   font-family: 'Inconsolata', 'Consolas', monospace;
-  font-size: 15px;
+  font-size: 0.938rem;
   background-color: $white;
 
   .input {
     &__group {
-      margin: 30px 0px;
       align-self: center;
       position: relative;
       padding-top: 15px;
-      width: 250px;
+      width: 100%;
       font-size: 15px;
     }
 
@@ -23,6 +22,13 @@ body {
       background: transparent;
       padding: 7px 10px;
       transition: border-color 0.2s, background-color 0.2s;
+
+      &:not(:placeholder-shown) {
+        ~ .input__label {
+          font-weight: 700;
+          color: $primary;
+        }
+      }
 
       &::placeholder {
         color: transparent;
@@ -64,19 +70,6 @@ body {
     z-index: 1;
   }
 
-  //input[type=submit], .button {
-  //  position: relative;
-  //  background-color: $primary;
-  //  color: $white;
-  //  font-weight: 700;
-  //  padding: 15px 30px;
-  //  margin-top: 30px;
-  //  text-align: center;
-  //  align-self: center;
-  //}
-
-
-
   .desktop {
     display: none;
   }
@@ -97,6 +90,10 @@ h1 {
     height: 3px;
     background-color: $primary;
   }
+}
+
+h2 {
+  font-weight: 700;
 }
 
 .error-message {

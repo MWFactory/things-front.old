@@ -1,7 +1,6 @@
 <template>
   <div class="input-file">
-    <input id="profile-picture" class="input-file__button" name="profile-picture" type="file" @change="handleFileUpload" />
-    <label class="input-file__label" for="profile-picture">
+    <label class="input-file__label">
       <span class="input-file__browse">
         Parcourir
       </span>
@@ -12,6 +11,7 @@
          </span>
         </span>
       </span>
+      <input class="input-file__button" type="file" @change="handleFileUpload" />
     </label>
   </div>
 </template>
@@ -25,12 +25,12 @@
         this.file = event.target.files[0];
 
         // on récupère la balise qui va contenir la photo de profil
-        const profilePictureArea = document.querySelector('.user-detail__profile-picture');
+        const profilePictureArea = document.querySelector('.profile-picture');
         let profilePictureTag;
         // on récupère le label "Parcourir" de l'input
-        const label = event.target.nextElementSibling;
+        // const label = document.querySelector('.input-file__label');
         // on récupère le champ qui va contenir le nom du fichier
-        const fileName = label.querySelector('.input-file__file-name');
+        const fileName = document.querySelector('.input-file__file-name');
         // et on y insère le nom du fichier qu'on vient d'uploader
         fileName.innerHTML = event.target.files[0].name;
 
@@ -60,6 +60,10 @@
             profilePictureArea.innerHTML = '';
             const image = new Image();
             image.classList.add('profile-picture-src');
+            image.style.width = '100%';
+            image.style.height = '100%';
+            image.style.objectFit = 'cover';
+            image.style.objectPosition = 'center';
             image.src = reader.result;
             image.alt = 'Photo de profil choisie par l\'utilisateur';
 

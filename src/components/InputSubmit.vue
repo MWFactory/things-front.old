@@ -1,5 +1,5 @@
 <template>
-  <input class="submit-button" type="submit" :value="value" />
+  <input :form="formName" class="submit-button" type="submit" :value="value" />
 </template>
 
 <script>
@@ -10,6 +10,10 @@
         type: [String],
         default: 'Lorem ipsum',
       },
+      formName: {
+        type: [String],
+        default: '',
+      }
     },
   };
 </script>
