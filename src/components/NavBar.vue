@@ -20,7 +20,7 @@
     <!-- if the user is connected / user profile -->
     <div v-else class="nav__links">
       <button class="nav__user-profile" @click="modalIsOpen = !modalIsOpen">
-        <img class="nav__user-profile-src" :src="`http://192.168.1.241:8000${profilePicture}`" alt="Photo de profil de l'utilisateur" />
+        <img class="nav__user-profile-src" :src="`${$config.apiURL + '/' + profilePicture}`" alt="Photo de profil de l'utilisateur" />
       </button>
       <!-- with a modal -->
       <div v-if="modalIsOpen" v-click-outside="clickOutsideMenu" class="nav__modal">

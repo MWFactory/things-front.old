@@ -1,5 +1,11 @@
 export default {
-  // * sendConnectionRequest : call to API for the connection
+  /**
+   * call to API for the connection
+   * @name sendConnectionRequest
+   * @param context
+   * @param payload
+   * @returns {Promise<void>}
+   */
   async sendConnectionRequest(context, payload) {
     const data = JSON.stringify({ ...payload });
 
@@ -36,11 +42,18 @@ export default {
         this.$router.push('/tableau-de-bord');
       })
   },
-  // * sendDisconnectionRequest : call to API for the disconnection
+  /**
+   * call to API for the disconnection
+   * @method
+   * @name sendDisconnectionRequest
+   * @param context
+   * @returns {Promise<void>}
+   */
   async sendDisconnectionRequest(context) {
     await this.$axios.get('/logout', { withCredentials: true })
       .then((response) => {
         context.commit('user/DISCONNECT_USER_SUCCESS', {}, { root: true });
+
         this.$router.push('/');
       })
   },

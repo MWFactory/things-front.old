@@ -79,6 +79,10 @@ export default {
     baseURL: process.env.API_URL || 'http://192.168.1.241:8000/',
   },
 
+  publicRuntimeConfig: {
+    apiURL: process.env.API_URL || 'http://192.168.1.241:8000'
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: ['lodash-es'],
@@ -86,5 +90,6 @@ export default {
 
   server: {
     host: '0.0.0.0',
+    port: 3500
   }
 }

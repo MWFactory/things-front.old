@@ -7,29 +7,27 @@
         {{ thing.title }}
       </h1>
       <!-- edit button -->
-      <router-link :to="`/thing/modifier/${thing.id}`" class="thing-detail__edit-thing">
-        <img class="thing-detail__edit-thing-ico" src="@/assets/images/edit-thing-icon.svg" alt="Modification d'une Thing" />
+      <router-link :to="`/thing/modifier/${ thing.id }`" class="thing-detail__edit-thing">
+        <img class="thing-detail__edit-thing-ico" src="../../assets/images/edit-thing-icon.svg" alt="Modification d'une Thing" />
       </router-link>
     </section>
     <section class="thing-detail__content">
       <!-- content with -->
-      <div class="thing-detail__files-wrapper">
+      <div class="thing-detail__files">
         <!-- attachments -->
-        <div class="thing-detail__files-src">
-          <div class="thing-detail__files-preview"></div>
-          <div class="thing-detail__files">
-            <div v-for="attachment of thing.attachments" :key="attachment.id" :class="attachment.onActive === false ? 'thing-detail__file' : 'thing-detail__file active'" @click="changeActiveFile">
-              <canvas id="canvas-id"></canvas>
-            </div>
+        <div class="thing-detail__files-wrapper">
+          <div class="thing-detail__files-preview" />
+          <div class="thing-detail__files-sources">
+            <div v-for="attachment of thing.attachments" :key="attachment.id" :id="attachment.id" :class="attachment.onActive === false ? 'thing-detail__file' : 'thing-detail__file active'" @click="changeActiveFile" />
           </div>
         </div>
         <div class="thing-detail__files-infos">
           <!-- name of active file -->
           <h2 class="thing-detail__files-subtitle">
-            <img class="thing-detail__files-preview-icon" src="@/assets/images/preview-icon.svg" alt="Prévisualisation" />
+            <img class="thing-detail__files-preview-icon" src="../../assets/images/preview-icon.svg" alt="Prévisualisation" />
             Nom et format du fichier
           </h2>
-          <div v-if="activeFile" class="thing-detail__files-path">
+          <div v-if="activeFile" class="thing-detail__file-name">
             {{ activeFile.originalFilename }}
           </div>
         </div>
@@ -81,8 +79,11 @@
     },
     mounted() {
       this.thing.attachments.forEach((attachment) => {
-        if (attachment.onActive === true) {
+        if (attachment.onActive) {
           this.activeFile = attachment;
+        } else {
+          this.CHANGE_ACTIVE_FILE({ id: this.thing.attachments[0].id });
+          this.activeFile = this.thing.attachments[0]
         }
       });
     },
@@ -90,16 +91,22 @@
       // ...map()
       ...mapMutations('thing', ['CHANGE_ACTIVE_FILE']),
 
+      /**
+       * when the user clicks on the thumbnail of a file, we change the active file
+       * @method
+       * @name changeActiveFile
+       * @param {Object} event - the clicked DOM node
+       */
       changeActiveFile(event) {
         const attachmentId = parseInt(event.target.id, 10);
+
+        this.CHANGE_ACTIVE_FILE({ id: attachmentId });
 
         this.thing.attachments.forEach((attachment) => {
           if (attachment.onActive === true) {
             this.activeFile = attachment;
           }
         });
-
-        this.CHANGE_ACTIVE_FILE({ id: attachmentId });
       },
     },
   };
@@ -115,7 +122,7 @@
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      height: 45px;
+      min-height: 45px;
     }
 
     &__edit-thing {
@@ -128,46 +135,43 @@
       margin-left: 1.875rem;
     }
 
+    /**
+      * CONTENT => files
+     */
     &__content {
       width: 100%;
     }
 
-    &__files-wrapper {
-      width: 100%;
-      margin: 1.875rem 0;
-    }
-
-    &__files-preview {
-      display: none;
-    }
-
-    &__files-infos {
-      margin-top: 0.938rem;
-    }
-
-    &__files-subtitle {
-      margin-bottom: 0.313rem;
-    }
-
     &__files {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      overflow: hidden;
-      overflow-x: scroll;
+      margin: 1.875rem 0;
+
+      &-preview {
+        display: none;
+      }
+
+      &-sources {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      &-infos {
+        margin-top: 0.938rem;
+      }
+
+      &-subtitle {
+        margin-bottom: 0.313rem;
+      }
     }
 
     &__file {
+      cursor: pointer;
+      overflow: hidden;
       height: 86px;
       width: 86px;
       min-height: 86px;
       min-width: 86px;
       border: 1px solid $black;
-      margin-right: 0.938rem;
-
-      &:last-child {
-        margin-right: 0;
-      }
 
       &.active {
         border: 1px solid $primary;
@@ -202,12 +206,21 @@
         flex-direction: row-reverse;
       }
 
-      &__files-wrapper, &__data {
+      &__files, &__data {
         width: 50%;
+        margin: 1.875rem 0;
       }
 
-      &__files-wrapper {
+      &__files {
         margin-left: 0.938rem;
+      }
+
+      &__data {
+        margin-right: 0.938rem;
+      }
+
+      &__description {
+        margin-top: 0;
       }
 
       &__files-preview {
@@ -217,22 +230,19 @@
         height: 100%;
       }
 
-      &__files-src {
+      &__files-wrapper {
         display: flex;
         height: 450px;
       }
 
-      &__data {
-        margin-right: 0.938rem;
-      }
-
-      &__files {
+      &__files-sources {
+        width: auto;
         display: flex;
         flex-direction: column;
+        justify-content: flex-end;
         overflow: hidden;
         padding-left: 1.875rem;
         padding-right: 10px;
-        width: auto;
       }
 
       &__file {
