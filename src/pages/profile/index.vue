@@ -5,7 +5,7 @@
     </h1>
     <div class="user-detail__profile-picture">
       <div class="profile-picture">
-        <img class="profile-picture-src" :src="`http://192.168.1.241:8000${profilePicture}`" alt="Photo de profil choisie par l'utilisateur." />
+        <img class="profile-picture-src" :src="`${$config.apiURL + '/' + profilePicture}`" alt="Photo de profil choisie par l'utilisateur." />
       </div>
       <div class="user-detail__delete" @click="deleteProfilePicture">
         <img class="user-detail__delete-src" src="@/assets/images/delete-thing-icon.svg" alt="Icône pour supprimer la photo de profil utilisateur" />
@@ -29,15 +29,15 @@
         </label>
       </div>
       <!-- INPUT : first name -->
-      <InputFormLocal id="first-name" name="first-name" type="text" label="Prénom" :value="firstName" v-model.trim="firstName" />
+      <InputFormLocal id="first-name" v-model.trim="firstName" name="first-name" type="text" label="Prénom" :value="firstName" />
       <!-- INPUT : last name -->
-      <InputFormLocal id="last-name" name="last-name" type="text" label="Nom" :value="lastName" v-model.trim="lastName" />
+      <InputFormLocal id="last-name" v-model.trim="lastName" name="last-name" type="text" label="Nom" :value="lastName" />
       <!-- INPUT : mail address -->
-      <InputFormLocal id="mail" name="mail" type="text" label="Adresse mail" :value="email" v-model.trim="email" />
+      <InputFormLocal id="mail" v-model.trim="email" name="mail" type="text" label="Adresse mail" :value="email" />
       <!-- INPUT : password -->
-      <InputFormLocal id="password" name="password" type="password" label="Mot de passe" :value="password" v-model.trim="password" />
+      <InputFormLocal id="password" v-model.trim="password" name="password" type="password" label="Mot de passe" :value="password" />
       <!-- INPUT : confirm password -->
-      <InputFormLocal id="confirm-password" name="confirm-password" type="password" label="Confirmation du mot de passe" :value="confirmPassword" v-model.trim="confirmPassword" />
+      <InputFormLocal id="confirm-password" v-model.trim="confirmPassword" name="confirm-password" type="password" label="Confirmation du mot de passe" :value="confirmPassword" />
         <!-- INPUT : submit -->
       <InputSubmit form-name="edit-user-form" value="Enregistrer les modifications" />
     </form>
@@ -163,8 +163,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0px 30px;
-    margin: 40px 0px;
+    padding: 0 30px;
+    margin: 40px 0;
 
     &__form {
       display: flex;
@@ -195,6 +195,10 @@
         width: 55%;
       }
     }
+  }
+
+  .input__group {
+    margin-top: 1.875rem
   }
 
   // "display: none" or "visibility: hidden" will not work out, because the value will not be send to the server on form submit. the input will be excluded out of tab order, and we want your app to be accessible.

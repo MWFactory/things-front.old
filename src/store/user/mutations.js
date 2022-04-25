@@ -1,10 +1,12 @@
 export default {
-  /*
-      USER MUTATIONS
-    * CONNECT_USER_SUCCESS : when the request for the user connection success
-    * DISCONNECTER_USER_SUCCESS : when the user click on the "disconnect" button
-    $ EDIT_USER_SUCCES : when the request for the user edition succes
-  */
+  /**
+   * when the request for the user connection success
+   * @method
+   * @name CONNECT_USER_SUCCESS
+   * @param state
+   * @param payload
+   * @constructor
+   */
   CONNECT_USER_SUCCESS(state, payload) {
     state.id = payload.user.id;
     state.firstName = payload.user.firstname;
@@ -14,6 +16,13 @@ export default {
     state.things = payload.things;
     state.isLogged = true;
   },
+  /**
+   * when the request for the user disconnection succes
+   * @method
+   * @name DISCONNECT_USER_SUCCESS
+   * @param state
+   * @constructor
+   */
   DISCONNECT_USER_SUCCESS(state) {
     state.id = 0;
     state.firstName = '';
@@ -24,8 +33,32 @@ export default {
     state.isLogged = false;
     state.errorMessage = '';
   },
+  /**
+   * when the request for the user edition success
+   * @method
+   * @name EDIT_USER_SUCCESS
+   * @param state
+   * @param payload
+   * @constructor
+   */
   // EDIT_USER_SUCCESS(state, payload) {
   //   state.id = payload.user.id;
   //   state.firstName = payload.user
-  // }
+  // },
+  /**
+   * when the request for the add thing success
+   * @method
+   * @name CREATE_THING_SUCCESS
+   * @param state
+   * @param payload
+   * @constructor
+   */
+  CREATE_THING_SUCCESS(state, payload) {
+    const newThingFile = {
+      ...payload,
+      attachments: payload.attachments
+    }
+
+    state.things.push(newThingFile);
+  }
 };

@@ -15,28 +15,30 @@
     </section>
     <section class="thing-edit__content">
       <!-- content with -->
-      <div class="thing-edit__files-wrapper">
+      <div class="thing-edit__files">
         <!-- attachments -->
-        <div class="thing-edit__files-src">
+        <div class="thing-edit__files-wrapper">
           <div class="thing-edit__files-preview">
             {{ activeFile }}
           </div>
-          <div class="thing-edit__files">
-            <!-- INPUT : profile picture -->
+          <div class="thing-edit__files-prout">
             <div class="thing-edit__add-thing-file-wrapper">
               <label class="thing-edit__add-thing-file-label">
-              <span class="thing-edit__add-thing-file-browse">
-                +
-              </span>
+            <span class="thing-edit__add-thing-file-browse">
+              +
+            </span>
                 <input class="thing-edit__add-thing-file-button" type="file" @change="addThingFile" />
               </label>
             </div>
-            <div v-for="(attachment, index) of data.attachments" :key="attachment.id" class="thing-edit__file-wrapper">
-              <div :id="`file-${index}`" :class="attachment.onActive === false ? 'thing-edit__file' : 'thing-edit__file active'"  @click="changeActiveFile">
-                {{ attachment }}
-              </div>
-              <div :id="`delete-${index}`" class="thing-edit__delete-thing" @click="deleteThingFile">
-                <img class="thing-edit__delete-thing-ico" src="@/assets/images/delete-thing-icon.svg" alt="Icône pour supprimer la photo de profil utilisateur" />
+            <div class="thing-edit__files-sources">
+              <!-- INPUT : profile picture -->
+              <div v-for="(attachment, index) of data.attachments" :key="attachment.id" class="thing-edit__file-wrapper">
+                <div :id="`file-${index}`" :class="attachment.onActive === false ? 'thing-edit__file' : 'thing-edit__file active'"  @click="changeActiveFile">
+                  {{ attachment }}
+                </div>
+                <div :id="`delete-${index}`" class="thing-edit__delete-thing" @click="deleteThingFile">
+                  <img class="thing-edit__delete-thing-ico" src="@/assets/images/delete-thing-icon.svg" alt="Icône pour supprimer la photo de profil utilisateur" />
+                </div>
               </div>
             </div>
           </div>
@@ -123,7 +125,12 @@
       // ...map()
       ...mapActions('thing', ['sendEditRequest']),
 
-      // when the user click on the + button
+      /**
+       * when the user clicks on the + button, he can add a new file
+       * @method
+       * @name addThingFile
+       * @param event
+       */
       addThingFile(event) {
         const onActive = this.data.attachments.length === 0;
 
@@ -137,7 +144,12 @@
 
         event.target.value = '';
       },
-      // when the user click on a file, we change the file in the preview
+      /**
+       * when the user clicks on a file, we change the file in the preview
+       * @method
+       * @name changeActiveFile
+       * @param event
+       */
       changeActiveFile(event) {
         const attachmentId = parseInt(event.target.id[5], 10);
 
@@ -150,7 +162,12 @@
           }
         });
       },
-      // when the user click on the trash of a file
+      /**
+       * when the user click on the trash of a file
+       * @method
+       * @name deleteThingFile
+       * @param event
+       */
       deleteThingFile(event) {
         let thingFileIndex;
 
@@ -170,7 +187,11 @@
 
         this.data.attachments.splice(thingFileIndex, 1);
       },
-      // when the user click on the save button
+      /**
+       * when the user clicks on the save button, we check if some inputs are empty
+       * @method
+       * @name handleEditThing
+       */
       handleEditThing() {
         if (this.data.title === '') {
           this.errorMessage = 'Titre obligatoire'
@@ -196,7 +217,7 @@
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      height: 45px;
+      min-height: 45px;
     }
 
     &__title-input {
@@ -219,8 +240,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 45px;
       min-width: 45px;
+      min-height: 45px;
       margin-left: 1.875rem;
       color: $white;
     }
@@ -233,19 +254,8 @@
       background-color: $primary;
     }
 
-    &__files-wrapper {
+    &__content {
       width: 100%;
-    }
-
-    &__files-subtitle {
-      margin-bottom: 0.313rem;
-    }
-
-    &__files {
-      display: flex;
-      align-items: center;
-      width: calc(100vw - 60px);
-      padding-left: 1.875rem;
     }
 
     input[type=file] {
@@ -257,35 +267,66 @@
       z-index: -1;
     }
 
+    &__files {
+      margin: 1.875rem 0;
+
+      &-wrapper {
+        display: flex;
+        flex-direction: column-reverse;
+      }
+
+      &-preview {
+        display: none;
+      }
+
+      &-prout {
+        display: flex;
+        flex-direction: column;
+        margin-left: 0.938rem;
+      }
+
+      &-sources {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      &-infos {
+        margin-top: 0.938rem;
+      }
+
+      &-subtitle {
+        margin-bottom: 0.313rem;
+      }
+    }
+
     &__add-thing-file-label {
-      width: 86px;
-      height: 86px;
+      width: 100%;
+      height: 56px;
       background-color: $secondary;
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 3rem;
       font-weight: 700;
-      margin-right: 1.25rem;
-    }
-
-    &__file-wrapper {
-      position: relative;
-      margin-right: 1.25rem;
-
-      &:last-child {
-        margin-right: 0;
-      }
+      margin-bottom: 1.25rem;
     }
 
     &__file {
+      cursor: pointer;
+      overflow: hidden;
       height: 86px;
       width: 86px;
+      min-height: 86px;
+      min-width: 86px;
       border: 1px solid $black;
-      overflow: hidden;
 
       &.active {
         border: 1px solid $primary;
+      }
+
+      &-wrapper {
+        position: relative;
       }
     }
 
@@ -305,28 +346,6 @@
       &-ico {
         width: 55%;
       }
-    }
-
-    &__content {
-      position: relative;
-      width: 100%;
-    }
-
-    &__files-wrapper {
-      width: 100%;
-      margin: 1.875rem 0;
-    }
-
-    &__files-preview {
-      display: none;
-    }
-
-    &__files-infos {
-      margin-top: 0.938rem;
-    }
-
-    &__files-subtitle {
-      margin-bottom: 0.313rem;
     }
 
     &__description {
@@ -380,35 +399,36 @@
         flex-direction: row-reverse;
       }
 
-      &__files-wrapper, &__data {
+      &__files, &__data {
         width: 50%;
-      }
-
-      &__files-wrapper {
-        margin-left: 0.938rem;
-      }
-
-      &__files-preview {
-        display: block;
-        border: 1px solid $black;
-        width: 100%;
-        height: 100%;
-      }
-
-      &__files-src {
-        display: flex;
-        height: 450px;
-      }
-
-      &__data {
-        margin-right: 0.938rem;
+        margin: 1.875rem 0;
       }
 
       &__files {
         display: flex;
         flex-direction: column;
-        padding-left: 1.875rem;
-        width: auto;
+        margin-left: 0.938rem;
+
+        &-wrapper {
+          display: flex;
+          flex-direction: row;
+        }
+
+        &-preview {
+          display: block;
+          border: 1px solid $black;
+          width: 100%;
+          height: 100%;
+        }
+
+        &-sources {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+
+      &__data {
+        margin-right: 0.938rem;
       }
 
       &__add-thing-file-label {

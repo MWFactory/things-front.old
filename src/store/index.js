@@ -1,4 +1,4 @@
-export const actions = {
+export const index = {
   nuxtServerInit(context) {
     const cookie = this.$cookies.get('PHPSESSID');
 
