@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
   font-family: 'Inconsolata', 'Consolas', monospace;
   font-size: 15px;
@@ -132,3 +133,136 @@ p {
   }
 
 }
+=======
+body {
+  font-family: 'Inconsolata', 'Consolas', monospace;
+  font-size: 0.938rem;
+  background-color: $white;
+
+  .input {
+    &__group {
+      align-self: center;
+      position: relative;
+      padding-top: 15px;
+      width: 100%;
+      font-size: 15px;
+    }
+
+    &__field {
+      position: relative;
+      width: 100%;
+      border: 0;
+      border-bottom: 1px solid $black;
+      outline: 0;
+      color: $black;
+      background: transparent;
+      padding: 7px 10px;
+      transition: border-color 0.2s, background-color 0.2s;
+
+      &:not(:placeholder-shown) {
+        ~ .input__label {
+          font-weight: 700;
+          color: $primary;
+        }
+      }
+
+      &::placeholder {
+        color: transparent;
+      }
+
+      &:placeholder-shown ~ .input__label {
+        cursor: text;
+        top: 20px;
+      }
+
+      &:focus {
+        border-width: 1px;
+        border-color: $primary;
+        background-color: $secondary;
+
+        ~ .input__label {
+          position: absolute;
+          top: -10px;
+          display: block;
+          transition: 0.2s;
+          color: $primary;
+          font-weight: 700;
+        }
+      }
+    }
+
+    &__label {
+      position: absolute;
+      top: -10px;
+      display: block;
+      transition: 0.2s;
+      color: $black;
+    }
+  }
+
+  input[type=text], input[type=password] {
+    outline: none;
+    -webkit-appearance: none;
+    z-index: 1;
+  }
+
+  .desktop {
+    display: none;
+  }
+}
+
+h1 {
+  position: relative;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 6px;
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: -3px;
+    height: 3px;
+    background-color: $primary;
+  }
+}
+
+h2 {
+  font-weight: 700;
+}
+
+.error-message {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  width: calc(100% - 60px);
+  color: $primary;
+  font-weight: 700;
+  text-align: center;
+}
+
+p {
+  font-size: 14px;
+
+  a {
+    font-weight: 700;
+  }
+}
+
+
+
+@media (min-width: 992px) {
+  body {
+    .desktop {
+      display: block;
+    }
+  }
+
+  h1 {
+   font-size: 35px;
+  }
+
+}
+>>>>>>> 6327c2b5279e99fa5771c81add7ff0877a79721c
